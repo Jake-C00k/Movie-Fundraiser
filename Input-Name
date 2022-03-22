@@ -1,0 +1,26 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    string name;
+    cout << "Please input the ticket-holders name" << endl;
+    cin >> name;
+    for(int i = 0; i < name.length(); i++)
+    {
+        if (isdigit(name[i]) == false)
+        {
+            cout << "program continues" << endl;
+            break;
+        }
+        else
+        {
+            cout << "Please enter a valid name." << endl;
+            break;
+        }
+    }
+    
+
+    return 0;
+}
