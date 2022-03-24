@@ -4,18 +4,25 @@ using namespace std;
 
 int main()
 {
+    //Establish variables
     string name;
+    //Asking for user input
     cout << "Please input the ticket-holders name" << endl;
     cin >> name;
+    //Iterating through the number of characters to check if a number is entered
     for(int i = 0; i < name.length(); i++)
     {
         if (isdigit(name[i]) == true)
         {
+            /*If the check for a number returns true at any point the loop will break
+            and the program will return an error message to the user */
             cout << "Please enter a valid name." << endl;
             break;
         }
         else
         {
+            /*If the check returns false, the program checks if it is the last 
+            character before outputting the return message*/
             if(i + 1 == name.length())
             {
                 cout << "program continues" << endl;
