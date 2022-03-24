@@ -9,15 +9,21 @@ int main()
     cin >> name;
     for(int i = 0; i < name.length(); i++)
     {
-        if (isdigit(name[i]) == false)
+        if (isdigit(name[i]) == true)
         {
-            cout << "program continues" << endl;
+            cout << "Please enter a valid name." << endl;
             break;
         }
         else
         {
-            cout << "Please enter a valid name." << endl;
-            break;
+            if(i + 1 == name.length())
+            {
+                cout << "program continues" << endl;
+            }
+            else
+            {
+                
+            }
         }
     }
     
