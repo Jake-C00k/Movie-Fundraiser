@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-void stringInput(string x, string y)
+void stringInput(string &userInput, string x, string y)
 {
     //Establish variables
     bool valid = false;
@@ -32,14 +32,14 @@ void stringInput(string x, string y)
                 character before outputting the return message*/
                 if(i + 1 == input.length())
                 {
-                    cout << input;
+                    userInput = input;
                     valid = true;
                 }
             }
             char ch = input[i];
             if (isspace(ch))
             {
-                cout << "That isn't allowed" << endl;
+                cout << x << endl;
             }
         }
     }
@@ -49,7 +49,9 @@ void stringInput(string x, string y)
 
 int main()
 {
+    string name;
     string commonOutput[2] = {"Please enter a valid input", "y"};
-    stringInput("Please input the ticket-holders name", commonOutput[0]);
+    stringInput(name, "Please input the ticket-holders name", commonOutput[0]);
+    cout << name;
     return 0;
 }
