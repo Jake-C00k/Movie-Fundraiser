@@ -1,0 +1,55 @@
+#include <iostream>
+
+using namespace std;
+void stringInput(string x, string y)
+{
+    //Establish variables
+    bool valid = false;
+    
+    //Iterating through the number of characters to check if a number is entered
+    while(!valid)
+    {
+        string input;
+        cout << x << endl;
+        getline(cin , input);
+        while (input.length()==0 )
+        {
+            cout << y << endl;
+            getline(cin, input);
+        }
+        for(int i = 0; i < input.length(); i++)
+        {
+            if (isalpha(input[i]) == false)
+            {
+                /*If the check for a number returns true at any point the loop will break
+                and the program will return an error message to the user */
+                cout << y << endl;
+                break;
+            }
+            else
+            {
+                /*If the check returns false, the program checks if it is the last 
+                character before outputting the return message*/
+                if(i + 1 == input.length())
+                {
+                    cout << input;
+                    valid = true;
+                }
+            }
+            char ch = input[i];
+            if (isspace(ch))
+            {
+                cout << "That isn't allowed" << endl;
+            }
+        }
+    }
+    cout << "*program continues*" << endl;
+    
+}
+
+int main()
+{
+    string commonOutput[2] = {"Please enter a valid input", "y"};
+    stringInput("Please input the ticket-holders name", commonOutput[0]);
+    return 0;
+}
