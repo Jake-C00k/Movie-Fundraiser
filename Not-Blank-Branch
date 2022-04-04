@@ -3,11 +3,36 @@
 using namespace std;
 bool notBlank(string &x, string y)
 {
-    getline(cin , x);
-    while (x.length() ==0 )
+    bool valid = false;
+    while(!valid)
     {
-        cout << y << endl;
-        getline(cin, x);
+        getline(cin , x);
+        while (x.length() ==0 )
+        {
+            cout << y << endl;
+            getline(cin, x);
+        }
+        for(int i = 0; i < x.length(); i++)
+        {
+            char ch = x[i];
+            if (!isspace(ch))
+            {
+                valid = true;
+            }
+            else
+            {
+                cout << y << endl;
+            }
+            
+        }
     }
     return true;
+}
+int main()
+{
+    string variable;
+    cout << "Enter something" << endl;
+    notBlank(variable, "You entered nothing!");
+
+    return 0;
 }
