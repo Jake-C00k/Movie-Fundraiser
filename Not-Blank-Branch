@@ -1,14 +1,16 @@
 #include <iostream>
 
 using namespace std;
-bool notBlank(string &x, string y)
+bool notBlank(string &x, string y, string z)
 {
     bool valid = false;
     while(!valid)
     {
+        cout << y << endl;
         getline(cin , x);
         while (x.length() ==0 )
         {
+            cout << z << endl;
             cout << y << endl;
             getline(cin, x);
         }
@@ -18,16 +20,19 @@ bool notBlank(string &x, string y)
             if (!isspace(ch))
             {
                 valid = true;
+                return true;
             }
             else
             {
-                cout << y << endl;
+                cout << z << endl;
+                break;
+                
             }
             
         }
     }
-    return true;
 }
+
 int main()
 {
     string variable;
