@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ bool notBlank(string &x, string y, string z)
             
         }
     }
+    return false;
 }
 int main()
 {
@@ -53,8 +55,19 @@ int main()
         else
         {
             cout << "Please enter a valid age" << endl;
-            break;
+            return 0;
         }
+    }
+    stringstream agePtr (ageInput);
+    int age = 0;
+    agePtr >> age;
+    if(12 > age or age > 130)
+    {
+        cout << "Invalid input" << endl;
+    }
+    else
+    {
+        cout << "Valid input" << endl;
     }
     
 
