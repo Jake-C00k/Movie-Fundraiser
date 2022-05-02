@@ -2,7 +2,7 @@
 #include <sstream>
 
 using namespace std;
-
+string ageInput;
 bool notBlank(string &x, string y, string z)
 {
     bool valid = false;
@@ -37,25 +37,30 @@ bool notBlank(string &x, string y, string z)
 }
 int intInput(int &x, int y, int z)
 {
-    string ageInput;
-    notBlank(ageInput, "Please input the ticket-holders age", "*Error* Please enter a valid age in the correct format between 12 and 130.");
-    for(int i = 0; i < ageInput.length(); i++)
+    intInput:
+    bool valid = false;
+    while(valid != true)
     {
-        if (isdigit(ageInput[i]) == true)
+        notBlank(ageInput, "Please input the ticket-holders age", "*Error* Please enter a valid age in the correct format between 12 and 130.");
+        for(int i = 0; i < ageInput.length(); i++)
         {
-            if(i + 1 == ageInput.length())
+            if (isdigit(ageInput[i]) == true)
             {
-                cout << "program continues" << endl;
+                if(i + 1 == ageInput.length())
+                {
+                    cout << "program continues" << endl;
+                    valid = true;
+                }
+                else
+                {
+                    
+                }
             }
             else
             {
-                
+                cout << "*Error* Please enter a valid age in the correct format between 12 and 130." << endl;
+                break;
             }
-        }
-        else
-        {
-            cout << "*Error* Please enter a valid age in the correct format between 12 and 130." << endl;
-            return 0;
         }
     }
     stringstream agePtr (ageInput);
@@ -63,6 +68,7 @@ int intInput(int &x, int y, int z)
     if(y > x or x > z)
     {
         cout << "*Error* Please enter a valid age in the correct format between 12 and 130." << endl;
+        goto intInput;
     }
     else
     {
@@ -79,4 +85,3 @@ int main()
 
     return 0;
 }
-
