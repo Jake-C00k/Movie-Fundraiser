@@ -31,6 +31,7 @@ bool notBlank(string &x, string y, string z)
             
         }
     }
+    return false;
 }
 
 void stringInput(string &userInput, string x, string y)
@@ -42,27 +43,21 @@ void stringInput(string &userInput, string x, string y)
     while(!valid)
     {
         string input;
-        notBlank(userInput,x , y);
+        notBlank(input, x , y);
         for(int i = 0; i < input.length(); i++)
         {
             if (isalpha(input[i]) == false)
             {
-                /*If the check returns false, the program checks if it is the last 
-                character before outputting the return message*/
+                cout << y << endl;
+            }
+            else
+            {
                 if(i + 1 == input.length())
                 {
                     userInput = input;
                     valid = true;
                 }
-  
-                /*If the check for a number returns true at any point the loop will break
-                and the program will return an error message to the user */
-                cout << y << endl;
-                break;
             }
-            else
-            {          }
-    
         }    
     }
     cout << "*program continues*" << endl;
