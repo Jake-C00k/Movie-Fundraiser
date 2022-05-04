@@ -1,13 +1,13 @@
 #include <iostream>
-
+int indent = 2;
 using namespace std;
-int pandas(string x, string y, string z, string a, int d)
+int pandas(string x, string y, string z, string a)
 {
     string list[4] = {x, y, z, a};
     for(int i = 0; i < 4; i++)
     {
         cout << list[i] << "    "; 
-        if(i == d - 1)
+        if(i == indent - 1)
         {
             cout << endl;
         }
@@ -17,13 +17,12 @@ int pandas(string x, string y, string z, string a, int d)
 
 int main()
 {
-    //example implementation
+    //Example Implementation
     string alpha = "Listy";
     string beta = "price";
     string gamma = "secondlisty";
     string delta = "secondprice";
-    int indent = 2;
-    pandas(alpha, beta, gamma, delta, indent);
+    pandas(alpha, beta, gamma, delta);
 
     return 0;
 }
