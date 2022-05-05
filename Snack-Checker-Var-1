@@ -1,0 +1,104 @@
+#include <iostream>
+
+using namespace std;
+string popcorn[3] = {"pc", "popcorn", "popcorn"};
+string mandm[3] = {"m&m", "mandm", "mnm"};
+string pitachips[3] = {"pitachips", "pitachip","pita"};
+string orangejuice[3] = {"oj", "orangejuice", "juice"};
+string water[3] = {"water", "h2o", "h20"};
+
+bool notBlank(string &x, string y, string z)
+{
+    bool valid = false;
+    while(!valid)
+    {
+        cout << y << endl;
+        getline(cin , x);
+        while (x.length() == 0 )
+        {
+            cout << z << endl;
+            cout << y << endl;
+            getline(cin, x);
+        }
+        for(int i = 0; i < x.length(); i++)
+        {
+            char ch = x[i];
+            if (!isspace(ch))
+            {
+                valid = true;
+                return true;
+            }
+            else
+            {
+                cout << z << endl;
+                break;
+                
+            }
+            
+        }
+    }
+    return false;
+}
+int snackValidChecker(string menuInput)
+{
+    for(int i = 0; i < 3; i++)
+    {
+        if(menuInput == popcorn[i])
+        {
+            menuInput = "popcorn";
+        }
+    }
+    for(int i = 0; i < 3; i++)
+    {
+        if(menuInput == mandm[i])
+        {
+            menuInput = "M&M";
+        }
+    }
+    for(int i = 0; i < 3; i++)
+    {
+        if(menuInput == pitachips[i])
+        {
+            menuInput = "pitachips";
+        }
+    }
+    for(int i = 0; i < 3; i++)
+    {
+        if(menuInput == orangejuice[i])
+        {
+            menuInput = "Orange Juice";
+        }
+    }
+    for(int i = 0; i < 3; i++)
+    {
+        if(menuInput == water[i])
+        {
+            menuInput = "water";
+        }
+    }
+    return 0;
+}
+int main()
+{
+    string menuInput;
+    Top:
+    notBlank(menuInput, "What snacks/drinks would you like to purchase? *enter ? to see menu options*", "That input is not valid");
+    if(menuInput == "xxx")
+    {
+        goto Bottom;
+    }
+    else
+    {
+        if(menuInput == "?")
+        {
+            cout << "The menu is: " << endl;
+            goto Top;
+        }
+        else
+        {
+            snackValidChecker(menuInput);
+        }
+    }
+    Bottom:
+    return 0;
+}
