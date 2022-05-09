@@ -3,14 +3,16 @@
 
 using namespace std;
 string ageInput;
+string COMMONOUTPUT[1] = {"Please enter a valid input"};
 bool notBlank(string &x, string y, string z)
 {
     bool valid = false;
+    //Sets an infinite loop unless the conditions are met
     while(!valid)
     {
         cout << y << endl;
         getline(cin , x);
-        while (x.length() ==0 )
+        while (x.length() == 0)
         {
             cout << z << endl;
             cout << y << endl;
@@ -36,7 +38,7 @@ bool notBlank(string &x, string y, string z)
     return false;
 }
 
-void stringInput(string &userInput, string x, string y)
+bool stringInput(string &userInput, string message, string error)
 {
     //Establish variables
     bool valid = false;
@@ -45,41 +47,42 @@ void stringInput(string &userInput, string x, string y)
     while(!valid)
     {
         string input;
-        notBlank(input, x , y);
+        //Checks whether the input is of blank type, and deals with it appropriately
+        notBlank(input, message , error);
         for(int i = 0; i < input.length(); i++)
         {
+            //If the character is a number, output error
             if (isalpha(input[i]) == false)
             {
-                cout << y << endl;
+                cout << error << endl;
             }
             else
             {
+                //If the character is the last character, the conditions are met
                 if(i + 1 == input.length())
                 {
                     userInput = input;
                     valid = true;
                 }
             }
-        }    
+        }
     }
-    cout << "*program continues*" << endl;
-    
+    return true;
 }
 
-int intInput(int &x, int y, int z)
+int intInput(int &userInput, string message, string error)
 {
     intInput:
     bool valid = false;
     while(valid != true)
     {
-        notBlank(ageInput, "Please input the ticket-holders age", "*Error* Please enter a valid age in the correct format between 12 and 130.");
+        notBlank(ageInput, message, error);
         for(int i = 0; i < ageInput.length(); i++)
         {
             if (isdigit(ageInput[i]) == true)
             {
                 if(i + 1 == ageInput.length())
                 {
-                    cout << "program continues" << endl;
                     valid = true;
                 }
                 else
@@ -89,32 +92,34 @@ int intInput(int &x, int y, int z)
             }
             else
             {
-                cout << "*Error* Please enter a valid age in the correct format between 12 and 130." << endl;
+                cout << error << endl;
                 break;
             }
         }
     }
     stringstream agePtr (ageInput);
-    agePtr >> x;
-    if(y > x or x > z)
-    {
-        cout << "*Error* Please enter a valid age in the correct format between 12 and 130." << endl;
-        goto intInput;
-    }
-    else
-    {
-        
-    }
+    agePtr >> userInput;
     return 0;
 }
 
 int main()
 {
     string name;
-    string commonOutput[2] = {"Please enter a valid input", "y"};
-    stringInput(name, "Please input the ticket-holders name", commonOutput[0]);
+    bool parameterMet = false;
+    stringInput(name, "Please input the ticket-holders name", COMMONOUTPUT[0]);
     int age = 0;
-    intInput(age, 12, 130);
+    while(parameterMet != true)
+    {
+        intInput(age, "Please input the ticket-holders age", COMMONOUTPUT[0]);
+        if(12 > age or age > 130)
+        {
+            cout << "*Error* You are not of an age suitable of purchasing a ticket" << endl;
+        }
+        else
+        {
+            parameterMet = true;
+        }
+    }
     cout << name << ", " << age << endl;
     
     return 0;
