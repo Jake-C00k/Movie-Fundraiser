@@ -1,0 +1,25 @@
+#include <iostream>
+#include <string>
+#include <array>
+
+using namespace std;
+
+int main()
+{
+    string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","orange", "juice"}, {"pitachips", "chips", "pita"}};
+    string input;
+    cin >> input;
+    for(int r = 0; r < 5; r++)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            size_t found = menuList[r][i].find(input);
+            if (found!=std::string::npos)
+            {
+                cout << menuList[r][0] << endl;
+                break;
+            }
+            
+        }
+    }
+}
