@@ -90,7 +90,7 @@ int snackInput(string &menuChoice, bool &snackFinish)
                 if (found!=std::string::npos)
                 {
                     menuChoice = menuList[r][0];
-                    cout << "Snack =" << menuChoice << endl;
+                    cout << "Snack = " << menuChoice << endl;
                     return 0;
                 }
             }
@@ -100,7 +100,7 @@ int snackInput(string &menuChoice, bool &snackFinish)
             cout << "Sorry, that may not be an available snack" << endl;
         }
     }
-    snackFinish == true;
+    snackFinish = true;
     return 0;
 }
 
@@ -108,11 +108,13 @@ int main()
 {
     string menuChoice[3];
     bool snackFinish = false;
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < 4; i++)
     {
-        while(!snackFinish)
+        snackInput(menuChoice[1], snackFinish);
+        if(snackFinish == true)
         {
-            snackInput(menuChoice[i], snackFinish);
+            break;
         }
     }
+    
 }
