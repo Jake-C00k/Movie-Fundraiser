@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+#include <array>
+#include <string.h>
+#include <regex>
+#include <sstream>
+
+using namespace std;
+bool notBlank(string &x, string y, string z)
+{
+    bool valid = false;
+    //Sets an infinite loop unless the conditions are met
+    while(!valid)
+    {
+        cout << y << endl;
+        getline(cin , x);
+        while (x.length() == 0)
+        {
+            cout << z << endl;
+            cout << y << endl;
+            getline(cin, x);
+        }
+        for(int i = 0; i < 2; i++)
+        {
+            char ch = x[i];
+            if (!isspace(ch))
+            {
+                valid = true;
+                return true;
+            }
+            else
+            {
+                cout << z << endl;
+                break;
+                
+            }
+            
+        }
+    }
+    return false;
+}
+bool exitCode(string x)
+{
+    if(x == "xxx")
+    {
+        return true;
+    }
+    return false;
+}
+int snackInput(string &menuChoice, bool &snackFinish)
+{
+    string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","orange", "juice"}, {"pitachips", "chips", "pita"}};
+    string menuInput;
+    while(!exitCode(menuInput))
+    {
+        notBlank(menuInput, "Please enter your preferred snack", "Error message here");
+        for(int r = 0; r < 5; r++)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                int pos = menuInput.find(" ");
+                string snack = menuInput.substr(0 , pos);
+                size_t found = menuList[r][i].find(snack);
+                if (found!=std::string::npos)
+                {
+                    menuChoice = menuList[r][0];
+                    cout << "Snack = " << menuChoice << endl;
+                    string numSnack = menuInput.substr(pos +1);
+                    cout << numSnack << endl;
+                    return 0;
+                    
+                }
+            }
+        }
+        if(menuChoice.empty() and !exitCode(menuInput))
+        {
+            cout << "Sorry, that may not be an available snack" << endl;
+        }
+    }
+    snackFinish = true;
+    return 0;
+}
+
+int main()
+{
+    string menuChoice[3];
+    bool snackFinish = false;
+    for(int i = 0; i < 4; i++)
+    {
+        snackInput(menuChoice[1], snackFinish);
+        if(snackFinish == true)
+        {
+            break;
+        }
+    }
+    
+}
