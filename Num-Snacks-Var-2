@@ -2,7 +2,6 @@
 #include <string>
 #include <array>
 #include <string.h>
-#include <regex>
 #include <sstream>
 
 using namespace std;
@@ -53,6 +52,7 @@ int snackInput(string &menuChoice, int &numSnack, bool &snackFinish)
     string menuInput;
     while(!exitCode(menuInput))
     {
+        ReSnack:
         notBlank(menuInput, "Please enter your preferred snack", "Error message here");
         for(int r = 0; r < 5; r++)
         {
@@ -61,13 +61,18 @@ int snackInput(string &menuChoice, int &numSnack, bool &snackFinish)
                 int pos = menuInput.find(" ");
                 string snack = menuInput.substr(0 , pos);
                 size_t found = menuList[r][i].find(snack);
-                if (found!=std::string::npos)
+                if (found != string::npos)
                 {
                     menuChoice = menuList[r][0];
-                    cout << "Snack: " << menuChoice << endl;
                     string numS = menuInput.substr(pos +1);
                     stringstream numSnackPtr (numS);
                     numSnackPtr >> numSnack;
+                    if(numSnack >= 4 or numSnack <= 0)
+                    {
+                        cout << "Not a valid number of snacks" << endl;
+                        goto ReSnack;
+                    }
+                    cout << "Snack: " << menuChoice << endl;
                     cout << "Number of that snack: " << numSnack << endl;
                     
                     return 0;
@@ -89,13 +94,17 @@ int main()
     string menuChoice[3];
     int numSnack;
     bool snackFinish = false;
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 3; ++i)
     {
-        snackInput(menuChoice[1], numSnack, snackFinish);
+        snackInput(menuChoice[i], numSnack, snackFinish);
         if(snackFinish == true)
         {
             break;
         }
+
     }
+    cout << menuChoice[0] << endl;
+    cout << menuChoice[1] << endl;
+    cout << menuChoice[2] << endl;
     
 }
