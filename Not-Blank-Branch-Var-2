@@ -1,0 +1,55 @@
+bool notBlank(string &x, string y, string z, bool snackString)
+{
+    bool valid = false;
+    //Sets an infinite loop unless the conditions are met
+    while(!valid)
+    {
+        cout << y << endl;
+        getline(cin , x);
+        while (x.length() == 0)
+        {
+            cout << z << endl;
+            cout << y << endl;
+            getline(cin, x);
+        }
+        if(snackString == false)
+        {
+            for(int i = 0; i < x.length(); i++)
+            {
+                char ch = x[i];
+                if (!isspace(ch))
+                {
+                    valid = true;
+                    return true;
+                }
+                else
+                {
+                    cout << z << endl;
+                    break;
+                    
+                }
+                
+            }
+        }
+        if(snackString == true)
+        {
+            for(int i = 0; i < 2; i++)
+            {
+                char ch = x[i];
+                if (!isspace(ch))
+                {
+                    valid = true;
+                    return true;
+                }
+                else
+                {
+                    cout << z << endl;
+                    break;
+                    
+                }
+                
+            }
+        }
+    }
+    return false;
+}
