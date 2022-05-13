@@ -1,1 +1,114 @@
+#include <iostream>
+#include <string>
+#include <array>
+#include <string.h>
+#include <sstream>
 
+using namespace std;
+bool notBlank(string &x, string y, string z)
+{
+    bool valid = false;
+    //Sets an infinite loop unless the conditions are met
+    while(!valid)
+    {
+        cout << y << endl;
+        getline(cin , x);
+        while (x.length() == 0)
+        {
+            cout << z << endl;
+            cout << y << endl;
+            getline(cin, x);
+        }
+        for(int i = 0; i < 2; i++)
+        {
+            char ch = x[i];
+            if (!isspace(ch))
+            {
+                valid = true;
+                return true;
+            }
+            else
+            {
+                cout << z << endl;
+                break;
+                
+            }
+            
+        }
+    }
+    return false;
+}
+bool exitCode(string x)
+{
+    if(x == "xxx")
+    {
+        return true;
+    }
+    return false;
+}
+int snackInput(int &numSeries, bool &snackFinish)
+{
+    string menuChoice;
+    int numSnack;
+    string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","orange", "juice"}, {"pitachips", "chips", "pita"}};
+    string menuInput;
+    while(!exitCode(menuInput))
+    {
+        ReSnack:
+        notBlank(menuInput, "Please enter your preferred snack", "Error message here");
+        for(int r = 0; r < 5; r++)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                int pos = menuInput.find(" ");
+                string snack = menuInput.substr(0 , pos);
+                size_t found = menuList[r][i].find(snack);
+                if (found != string::npos)
+                {
+                    string numS = menuInput.substr(pos +1);
+                    stringstream numSnackPtr (numS);
+                    numSnackPtr >> numSnack;
+                    if(numSnack >= 4 or numSnack <= 0)
+                    {
+                        cout << "Not a valid number of snacks" << endl;
+                        goto ReSnack;
+                    }
+                    menuChoice = menuList[r][i];
+                    cout << "Snack: " << menuChoice << endl;
+                    cout << "Number of that snack: " << numSnack << endl;
+                    string s1 = to_string(r);
+                    string s2 = to_string(numSnack);
+                    string s = s1 +  s2;
+                    //cout << s << endl;
+                    int number = stoi(s);
+                    numSeries = number;
+                    //cout << numSeries << endl;
+                    return 0;
+                    
+                }
+            }
+        }
+        if(menuChoice.empty() and !exitCode(menuInput))
+        {
+            cout << "Sorry, that may not be an available snack" << endl;
+        }
+    }
+    snackFinish = true;
+    return 0;
+}
+
+int main()
+{
+    string menuChoice[3];
+    int menuChoose[3];
+    int numSeries, numSeries2, numSeries3;
+    bool snackFinish = false;
+    snackInput(numSeries, snackFinish);
+    snackInput(numSeries2, snackFinish);
+    snackInput(numSeries3, snackFinish);
+    cout << numSeries << endl;
+    cout << numSeries2 << endl;
+    cout << numSeries3 << endl;
+
+    
+}
