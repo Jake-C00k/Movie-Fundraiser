@@ -1,0 +1,61 @@
+#include <iostream>
+
+using namespace std;
+int main()
+{
+    int numSeries = 12;
+    int numSeries2 = 11;
+    int numSeries3 = 43;
+    
+    string numSeriesStr = to_string(numSeries);
+    string numSeries2Str = to_string(numSeries2);
+    string numSeries3Str = to_string(numSeries3);
+    string numberSeries[3] = {numSeriesStr, numSeries2Str, numSeries3Str};
+    int cost[3];
+    for(int i = 0; i < 3; i++)
+    {
+        if(numSeriesStr.find("1[^ ]"))
+        {
+            int indexPos = numberSeries[i].find("1");
+            string numOfMandmStr = numberSeries[i].substr(indexPos + 1);
+            int numOfMandm = stoi(numOfMandmStr);
+            cost[i] = numOfMandm * 3.00;
+            cout << numOfMandm << endl << cost[i] << endl;
+            break;
+        }
+        if(numSeriesStr.find("2[^ ]"))
+        {
+            int indexPos = numberSeries[i].find("2");
+            string numOfWaterStr = numberSeries[i].substr(indexPos + 1);
+            int numOfWater = stoi(numOfWaterStr);
+            cost[i] = numOfWater * 2.00;
+            cout << numOfWater << endl << cost[i] << endl;
+            break;
+        }
+        if(numSeriesStr.find("3[^ ]"))
+        {
+            int indexPos = numberSeries[i].find("3");
+            string numOfOJStr = numberSeries[i].substr(indexPos + 1);
+            int numOfOJ = stoi(numOfOJStr);
+            cost[i] = numOfOJ * 3.25;
+            cout << numOfOJ << endl << cost[i] << endl;
+            break;
+        }
+        if(numSeriesStr.find("4[^ ]"))
+        {
+            int indexPos = numberSeries[i].find("2");
+            string numOfPCStr = numberSeries[i].substr(indexPos + 1);
+            int numOfPC = stoi(numOfPCStr);
+            cost[i] = numOfPC * 4.50;
+            cout << numOfPC << endl << cost[i] << endl;
+            break;
+        }
+        string numOfPopcornStr = numberSeries[i];
+        int numOfPopcorn = stoi(numOfPopcornStr);
+        cost[i] = numOfPopcorn * 2.50;
+        cout << numOfPopcorn << endl << cost[i] << endl;
+        break;
+    }
+    int totalCost = cost[0] + cost[1] + cost[2];
+    return 0;
+}
