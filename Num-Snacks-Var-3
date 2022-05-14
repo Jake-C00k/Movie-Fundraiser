@@ -5,6 +5,7 @@
 #include <sstream>
 
 using namespace std;
+int noOfPopcorn, noOfMandM, noOfWater, noOfOJ, noOfPita;
 bool notBlank(string &x, string y, string z)
 {
     bool valid = false;
@@ -46,7 +47,7 @@ bool exitCode(string x)
     }
     return false;
 }
-int snackInput(int &numSeries, bool &snackFinish)
+int snackInput()
 {
     string menuChoice;
     int numSnack;
@@ -76,13 +77,26 @@ int snackInput(int &numSeries, bool &snackFinish)
                     menuChoice = menuList[r][i];
                     cout << "Snack: " << menuChoice << endl;
                     cout << "Number of that snack: " << numSnack << endl;
-                    string s1 = to_string(r);
-                    string s2 = to_string(numSnack);
-                    string s = s1 +  s2;
-                    //cout << s << endl;
-                    int number = stoi(s);
-                    numSeries = number;
-                    //cout << numSeries << endl;
+                    if(menuChoice == menuList[1][i])
+                    {
+                        noOfPopcorn = numSnack;
+                    }
+                    if(menuChoice == menuList[2][i])
+                    {
+                        noOfMandM = numSnack;
+                    }
+                    if(menuChoice == menuList[3][i])
+                    {
+                        noOfWater = numSnack;
+                    }
+                    if(menuChoice == menuList[4][i])
+                    {
+                        noOfOJ = numSnack;
+                    }
+                    if(menuChoice == menuList[5][i])
+                    {
+                        noOfPita = numSnack;
+                    }
                     return 0;
                     
                 }
@@ -93,19 +107,16 @@ int snackInput(int &numSeries, bool &snackFinish)
             cout << "Sorry, that may not be an available snack" << endl;
         }
     }
-    snackFinish = true;
     return 0;
 }
 
 int main()
 {
-    string menuChoice[3];
     int menuChoose[3];
     int numSeries, numSeries2, numSeries3;
-    bool snackFinish = false;
-    snackInput(numSeries, snackFinish);
-    snackInput(numSeries2, snackFinish);
-    snackInput(numSeries3, snackFinish);
+    snackInput();
+    snackInput();
+    snackInput();
     cout << numSeries << endl;
     cout << numSeries2 << endl;
     cout << numSeries3 << endl;
