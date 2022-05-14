@@ -49,6 +49,7 @@ bool exitCode(string x)
 }
 int snackInput()
 {
+    bool snackString = true;
     string menuChoice;
     int numSnack;
     string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","orange", "juice"}, {"pitachips", "chips", "pita"}};
@@ -77,23 +78,23 @@ int snackInput()
                     menuChoice = menuList[r][i];
                     cout << "Snack: " << menuChoice << endl;
                     cout << "Number of that snack: " << numSnack << endl;
-                    if(menuChoice == menuList[1][i])
+                    if(menuChoice == menuList[0][i])
                     {
                         noOfPopcorn = numSnack;
                     }
-                    if(menuChoice == menuList[2][i])
+                    if(menuChoice == menuList[1][i])
                     {
                         noOfMandM = numSnack;
                     }
-                    if(menuChoice == menuList[3][i])
+                    if(menuChoice == menuList[2][i])
                     {
                         noOfWater = numSnack;
                     }
-                    if(menuChoice == menuList[4][i])
+                    if(menuChoice == menuList[3][i])
                     {
                         noOfOJ = numSnack;
                     }
-                    if(menuChoice == menuList[5][i])
+                    if(menuChoice == menuList[4][i])
                     {
                         noOfPita = numSnack;
                     }
