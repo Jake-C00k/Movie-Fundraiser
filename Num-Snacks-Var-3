@@ -47,7 +47,7 @@ bool exitCode(string x)
     }
     return false;
 }
-int snackInput()
+int snackInput(bool &snackFinish)
 {
     bool snackString = true;
     string menuChoice;
@@ -80,23 +80,23 @@ int snackInput()
                     cout << "Number of that snack: " << numSnack << endl;
                     if(menuChoice == menuList[0][i])
                     {
-                        noOfPopcorn = numSnack;
+                        noOfPopcorn += numSnack;
                     }
                     if(menuChoice == menuList[1][i])
                     {
-                        noOfMandM = numSnack;
+                        noOfMandM += numSnack;
                     }
                     if(menuChoice == menuList[2][i])
                     {
-                        noOfWater = numSnack;
+                        noOfWater += numSnack;
                     }
                     if(menuChoice == menuList[3][i])
                     {
-                        noOfOJ = numSnack;
+                        noOfOJ += numSnack;
                     }
                     if(menuChoice == menuList[4][i])
                     {
-                        noOfPita = numSnack;
+                        noOfPita += numSnack;
                     }
                     return 0;
                     
@@ -107,20 +107,23 @@ int snackInput()
         {
             cout << "Sorry, that may not be an available snack" << endl;
         }
+        snackFinish = true;
     }
     return 0;
 }
 
 int main()
 {
+    bool snackFinish = false;
     int menuChoose[3];
     int numSeries, numSeries2, numSeries3;
-    snackInput();
-    snackInput();
-    snackInput();
-    cout << numSeries << endl;
-    cout << numSeries2 << endl;
-    cout << numSeries3 << endl;
+    for(int i = 0; i < 3; i++)
+    {
+        while(snackFinish != true)
+        {
+            snackInput(snackFinish);
+        }
+    }
 
     
 }
