@@ -1,0 +1,124 @@
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","orange", "juice"}, {"pitachips", "chips", "pita"}};
+string results[150][5] = {};
+int noOfSnack, snackType;
+bool notBlank(string &x, string y, string z, bool snackString)
+{
+    bool valid = false;
+    //Sets an infinite loop unless the conditions are met
+    while(!valid)
+    {
+        cout << y << endl;
+        getline(cin , x);
+        while (x.length() == 0)
+        {
+            cout << z << endl;
+            cout << y << endl;
+            getline(cin, x);
+        }
+        if(!snackString)
+        {
+            for(int i = 0; i < x.length(); i++)
+            {
+                char ch = x[i];
+                if (!isspace(ch))
+                {
+                    valid = true;
+                    return true;
+                }
+                else
+                {
+                    cout << z << endl;
+                    break;
+                    
+                }
+                
+            }
+        }
+        if(snackString)
+        {
+            for(int i = 0; i < 2; i++)
+            {
+                char ch = x[i];
+                if (!isspace(ch))
+                {
+                    valid = true;
+                    return true;
+                }
+                else
+                {
+                    cout << z << endl;
+                    break;
+                    
+                }
+                
+            }
+        }
+    }
+    return false;
+}
+
+bool intChecker(string intInput)
+{
+    for(int i = 0; i < intInput.length(); i++)
+    {
+        if (isdigit(intInput[i]))
+        {
+            if(i + 1 == intInput.length())
+            {
+                return true;
+            }
+        }
+        if(i + 1 == intInput.length())
+        {
+            cout << "Please enter a valid number" << endl;
+        }
+    }
+    return false;
+}
+
+bool snackChecker()
+{
+    string userInput;
+    snackTop:
+    bool validInput = false, snackString = true;
+    while(!validInput)
+    {
+        notBlank(userInput, "Please enter a snack", "That is not a valid input", snackString);
+        int pos = userInput.find(" ");
+        string snackInput = userInput.substr(0, pos);
+        for(int r = 0; r < 5; r++)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                if(snackInput == menuList[r][i])
+                {
+                    snackType = r;
+                    validInput = true;
+                    string numSnacks = userInput.substr(pos +1);
+                    if(intChecker(numSnacks))
+                    {
+                        noOfSnack = stoi(numSnacks);
+                        return true;
+                    }
+                    goto snackTop;
+                }
+            }   
+        }
+        cout << "Not a valid input" << endl;
+    }
+    return false;
+}    
+
+
+
+int main()
+{
+    snackChecker();
+    cout << noOfSnack << " " << snackType << endl;
+
+    return 0;
+}
