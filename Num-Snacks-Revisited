@@ -3,7 +3,7 @@
 
 using namespace std;
 string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","orange", "juice"}, {"pitachips", "chips", "pita"}};
-string results[150][5] = {};
+string results[6] = {"name", "age", "Ticket Price"};
 int noOfSnack, snackType;
 bool notBlank(string &x, string y, string z, bool snackString)
 {
@@ -84,8 +84,8 @@ bool snackChecker()
 {
     string userInput;
     snackTop:
-    bool validInput = false, snackString = true;
-    while(!validInput)
+    bool snackString = true;
+    while(true)
     {
         notBlank(userInput, "Please enter a snack", "That is not a valid input", snackString);
         int pos = userInput.find(" ");
@@ -96,17 +96,21 @@ bool snackChecker()
             {
                 if(snackInput == menuList[r][i])
                 {
-                    snackType = r;
-                    validInput = true;
+                    snackType = r + 3;
                     string numSnacks = userInput.substr(pos +1);
                     if(intChecker(numSnacks))
                     {
                         noOfSnack = stoi(numSnacks);
+                        results[snackType] += numSnacks;
                         return true;
                     }
                     goto snackTop;
                 }
             }   
+        }
+        if(snackInput == "xxx")
+        {
+            return false;
         }
         cout << "Not a valid input" << endl;
     }
@@ -117,8 +121,15 @@ bool snackChecker()
 
 int main()
 {
-    snackChecker();
+    for(int i = 0; i < 3; i++)
+    {
+        if(!snackChecker())
+        {
+            break;
+        }
+        
+    }
     cout << noOfSnack << " " << snackType << endl;
-
+    cout << results[3];
     return 0;
 }
