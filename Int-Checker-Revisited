@@ -12,17 +12,16 @@ bool intChecker(string intInput)
                 return true;
             }
         }
-        if(i + 1 == intInput.length())
-        {
-            cout << "Please enter a valid number" << endl;
-        }
+        cout << "Please enter a valid number" << endl;
+        break;
     }
     return false;
 }
 
 int main()
 {
-    string strNumber = "98";
+    string strNumber;
+    cin >> strNumber;
     int number;
     if(intChecker(strNumber))
     {
@@ -30,3 +29,5 @@ int main()
     }
     cout << number << endl;
 }
+
+
