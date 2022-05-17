@@ -12,8 +12,11 @@ bool intChecker(string intInput)
                 return true;
             }
         }
-        cout << "Please enter a valid number" << endl;
-        break;
+        else
+        {
+            cout << "Please enter a valid Input" << endl;
+            break;
+        }
     }
     return false;
 }
