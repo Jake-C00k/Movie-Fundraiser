@@ -1,0 +1,18 @@
+bool intChecker(string intInput)
+{
+    for(int i = 0; i < intInput.length(); i++)
+    {
+        if (isdigit(intInput[i]))
+        {
+            if(i + 1 == intInput.length())
+            {
+                return true;
+            }
+        }
+        if(i + 1 == intInput.length())
+        {
+            cout << "Please enter a valid number" << endl;
+        }
+    }
+    return false;
+}
