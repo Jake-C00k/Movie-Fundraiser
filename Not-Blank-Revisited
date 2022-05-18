@@ -41,7 +41,7 @@ bool notBlank(string &x, string y, string z, bool snackString)
                 else
                 {
                     cout << z << endl;
-                    break;
+                    return false;
                     
                 }
                 
@@ -55,7 +55,7 @@ bool notBlank(string &x, string y, string z, bool snackString)
 int main()
 {
     string input;
-    bool snackString = false;
+    bool snackString = true;
     while(true)
     {
         if(notBlank(input,"please enter a valid input", "error message", snackString))
