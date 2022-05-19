@@ -99,7 +99,6 @@ bool snackChecker()
                 if(snackInput == menuList[r][i])
                 {
                     snackType = r;
-                    cout << snackType << endl;
                     string numSnacks = userInput.substr(pos +1);
                     if(intChecker(numSnacks))
                     {
