@@ -46,6 +46,8 @@ int snackValidChecker(string menuInput)
         if(menuInput == popcorn[i])
         {
             menuInput = "popcorn";
+            cout << menuInput << endl;
+            return 0;
         }
     }
     for(int i = 0; i < 3; i++)
@@ -53,6 +55,8 @@ int snackValidChecker(string menuInput)
         if(menuInput == mandm[i])
         {
             menuInput = "M&M";
+            cout << menuInput << endl;
+            return 0;
         }
     }
     for(int i = 0; i < 3; i++)
@@ -60,6 +64,8 @@ int snackValidChecker(string menuInput)
         if(menuInput == pitachips[i])
         {
             menuInput = "pitachips";
+            cout << menuInput << endl;
+            return 0;
         }
     }
     for(int i = 0; i < 3; i++)
@@ -67,6 +73,8 @@ int snackValidChecker(string menuInput)
         if(menuInput == orangejuice[i])
         {
             menuInput = "Orange Juice";
+            cout << menuInput << endl;
+            return 0;
         }
     }
     for(int i = 0; i < 3; i++)
@@ -74,8 +82,11 @@ int snackValidChecker(string menuInput)
         if(menuInput == water[i])
         {
             menuInput = "water";
+            cout << menuInput << endl;
+            return 0;
         }
     }
+    cout << "error" << endl;
     return 0;
 }
 int main()
