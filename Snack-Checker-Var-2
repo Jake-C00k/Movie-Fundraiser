@@ -71,9 +71,9 @@ bool stringInput(string &userInput, string message, string error)
 int main()
 {
     string menuChoice;
-    string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","orange", "juice"}, {"pitachips", "chips", "pita"}};
+    string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","oj", "juice"}, {"pitachips", "chips", "pita"}};
     string menuInput;
-    stringInput(menuInput, "Please enter a your preferred snack", "Error message here");
+    stringInput(menuInput, "Please enter your preferred snack", "Error message here");
     for(int r = 0; r < 5; r++)
     {
         for(int i = 0; i < 3; i++)
@@ -93,3 +93,4 @@ int main()
         cout << "Error message here" << endl;
     }
 }
+
