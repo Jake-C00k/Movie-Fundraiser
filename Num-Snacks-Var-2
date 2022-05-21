@@ -48,7 +48,7 @@ bool exitCode(string x)
 }
 int snackInput(string &menuChoice, int &numSnack, bool &snackFinish)
 {
-    string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","orange", "juice"}, {"pitachips", "chips", "pita"}};
+    string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"}, {"water", "water", "water"}, {"orangejuice","oj", "juice"}, {"pitachips", "chips", "pita"}};
     string menuInput;
     while(!exitCode(menuInput))
     {
