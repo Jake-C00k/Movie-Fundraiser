@@ -1,0 +1,99 @@
+#include <iostream>
+
+using namespace std;
+bool notBlank(string &x, string y, string z, bool snackString)
+{
+    while(true)
+    {
+        string n;
+        while (n.length() == 0)
+        {
+            cout << y << endl;
+            getline(cin, n);
+        }
+        if(snackString == false)
+        {
+            for(int i = 0; i < n.length(); i++)
+            {
+                char ch = n[i];
+                if (!isspace(ch))
+                {
+
+                }
+                else
+                {
+                    cout << z << endl;
+                    return false;
+                    
+                }
+                
+            }
+        }
+        if(snackString == true)
+        {
+            for(int i = 0; i < 2; i++)
+            {
+                char ch = n[i];
+                if (!isspace(ch))
+                {
+
+                }
+                else
+                {
+                    cout << z << endl;
+                    return false;
+                    
+                }
+                
+            }
+        }
+        x = n;
+        return true;
+    }
+    
+}
+
+bool strChecker(string strInput)
+{
+    for(int i = 0; i < strInput.length(); i++)
+    {
+        if (isalpha(strInput[i]))
+        {
+            if(i + 1 == strInput.length())
+            {
+                return true;
+            }
+        }
+        else
+        {
+            cout << "Please enter a valid Input" << endl;
+            break;
+        }
+    }
+    return false;
+}
+
+int main()
+{
+    string payMethod;
+    bool snackString = false;
+    while(true)
+    {
+        if(notBlank(payMethod, "Would you like pay using cash or card", "Not a valid input", snackString))
+        {
+            if(strChecker(payMethod))
+            {
+                if(payMethod == "cash")
+                {
+                    break;
+                }
+                if(payMethod == "card")
+                {
+                    break;
+                }
+                cout << "Please enter 'cash' or 'card'" << endl;
+            }
+        }
+    }
+    return 0;
+}
