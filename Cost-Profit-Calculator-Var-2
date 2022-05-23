@@ -3,10 +3,14 @@
 using namespace std;
 int results[5] = {1, 0, 0, 2, 3};
 float snackCost[5] = {2.50, 3.00, 4.50, 3.25, 2.00};
-float profit, profitPercent = 0.2;
+
+float profitPercent = 0.2;
 
 int main()
 {
+    int age = 65;
+    bool credit = true;
+    float ticketCost, totalCost;
     float snackTotal, profit;
     
     for(int i = 0; i < sizeof(results)/sizeof(results[0]); i++)
@@ -16,8 +20,27 @@ int main()
             snackTotal += snackCost[i];
         }
     }
-    cout << snackTotal << endl;
     profit = snackTotal * profitPercent;
-    cout << profit;
+    cout << profit << endl;
+    
+    if(age <= 15)
+    {
+        ticketCost = 7.50;
+    }
+    if(age <= 64 and age >= 16)
+    {
+        ticketCost = 10.50;
+    }
+    if(age >= 65)
+    {
+        ticketCost = 6.50;
+    }
+    cout << ticketCost << endl;
+    totalCost = ticketCost + snackTotal;
+    if(credit == true)
+    {
+        totalCost += 0.05;
+    }
+    cout << "The Total Cost is: $" << totalCost << endl;
     return 0;
 }
