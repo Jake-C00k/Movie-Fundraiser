@@ -1,0 +1,30 @@
+#include <iostream>
+
+using namespace std;
+int results[5] = {1, 0, 0, 2, 3};
+float snackCost[5] = {2.50, 3.00, 4.50, 3.25, 2.00};
+float profit[5] = {0.50, 0.60, 0.90, 0.65, 0.40};
+
+int main()
+{
+    float snackTotal, profitTotal;
+    
+    for(int i = 0; i < sizeof(results)/sizeof(results[0]); i++)
+    {
+        for(int n = 0; n < results[i]; n++)
+        {
+            snackTotal += snackCost[i];
+        }
+    }
+    
+    for(int i = 0; i < sizeof(results)/sizeof(results[0]); i++)
+    {
+        for(int n = 0; n < results[i]; n++)
+        {
+            profitTotal += profit[i];
+        }
+    }
+    cout << snackTotal << endl;
+    cout << profitTotal;
+    return 0;
+}
