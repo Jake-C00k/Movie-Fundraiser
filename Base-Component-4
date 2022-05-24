@@ -3,9 +3,9 @@
 
 using namespace std;
 string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"},{"pitachips", "chips", "pita"}, {"orangejuice","orange", "juice"}, {"water", "water", "water"}};
-int results[6] = {};
+int results[5] = {};         
 float snackCost[5] = {2.50, 3.00, 4.50, 3.25, 2.00};
-string commonOutput[3] = {"That is not a valid input"};
+string commonOutput[1] = {"That is not a valid input"};
 int noOfSnack, snackType;
 float profitPercent = 0.2;
 int lower(string &lowString)
@@ -126,7 +126,7 @@ bool snackChecker()
         }
         int pos = userInput.find(" ");
         string snackInput = userInput.substr(0, pos);
-        for(int r = 0; r < 5; r++)
+        for(int r = 0; r < sizeof(menuList)/sizeof(menuList[0]); r++)
         {
             for(int i = 0; i < 3; i++)
             {
@@ -200,7 +200,7 @@ int main()
     }
     while(true)
     {
-        if(notBlank(payMethod, "Would you like pay using cash or card", "Not a valid input", snackString))
+        if(notBlank(payMethod, "Would you like pay using cash or card", commonOutput[0], snackString))
         {
             if(strChecker(payMethod))
             {
