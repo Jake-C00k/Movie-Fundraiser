@@ -1,0 +1,250 @@
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+string menuList[5][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"},{"pitachips", "chips", "pita"}, {"orangejuice","orange", "juice"}, {"water", "water", "water"}};
+int results[6] = {};
+float snackCost[5] = {2.50, 3.00, 4.50, 3.25, 2.00};
+string commonOutput[3] = {"That is not a valid input"};
+int noOfSnack, snackType;
+float profitPercent = 0.2;
+int lower(string &lowString)
+{
+    for(int x = 0; x < lowString.length(); x++ ) 
+    {
+        lowString[x] = tolower(lowString[x]);
+    }
+    return 0;
+}
+
+bool strChecker(string strInput)
+{
+    for(int i = 0; i < strInput.length(); i++)
+    {
+        if (isalpha(strInput[i]))
+        {
+            if(i + 1 == strInput.length())
+            {
+                return true;
+            }
+        }
+        else
+        {
+            cout << "Please enter a valid Input" << endl;
+            break;
+        }
+    }
+    return false;
+}
+
+bool intChecker(string intInput)
+{
+    for(int i = 0; i < intInput.length(); i++)
+    {
+        if (isdigit(intInput[i]))
+        {
+            if(i + 1 == intInput.length())
+            {
+                return true;
+            }
+        }
+        else
+        {
+            cout << "Please enter a valid Input" << endl;
+            break;
+        }
+    }
+    return false;
+}
+
+bool notBlank(string &x, string y, string z, bool snackString)
+{
+    while(true)
+    {
+        string n;
+        while (n.length() == 0)
+        {
+            cout << y << endl;
+            getline(cin, n);
+        }
+        if(snackString == false)
+        {
+            for(int i = 0; i < n.length(); i++)
+            {
+                char ch = n[i];
+                if (!isspace(ch))
+                {
+
+                }
+                else
+                {
+                    cout << z << endl;
+                    return false;
+                    
+                }
+                
+            }
+        }
+        if(snackString == true)
+        {
+            for(int i = 0; i < 2; i++)
+            {
+                char ch = n[i];
+                if (!isspace(ch))
+                {
+
+                }
+                else
+                {
+                    cout << z << endl;
+                    return false;
+                    
+                }
+                
+            }
+        }
+        x = n;
+        lower(x);
+        return true;
+    }
+    
+}
+
+bool snackChecker()
+{
+    string userInput;
+    snackTop:
+    bool snackString = true;
+    while(true)
+    {
+        while(true)
+        {
+            if(notBlank(userInput, "Please enter a snack", "That is not a valid input", snackString))
+            {
+                break;
+            }
+        }
+        int pos = userInput.find(" ");
+        string snackInput = userInput.substr(0, pos);
+        for(int r = 0; r < 5; r++)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                if(snackInput == menuList[r][i])
+                {
+                    snackType = r;
+                    string numSnacks = userInput.substr(pos +1);
+                    if(intChecker(numSnacks))
+                    {
+                        noOfSnack = stoi(numSnacks);
+                        if(noOfSnack > 3)
+                        {
+                            cout << "The maximum number of snacks is 3" << endl;
+                            goto snackTop;
+                        }
+                        results[snackType] += noOfSnack;
+                        cout << "Snack accepted" << endl;
+                        return true;
+                    }
+                    goto snackTop;
+                }
+            }   
+        }
+        if(snackInput == "xxx")
+        {
+            return false;
+        }
+        cout << "Not a valid input" << endl;
+    }
+    return false;
+}
+
+int main()
+{
+    string name, strAge, payMethod;
+    int age;
+    bool snackString = false, credit;
+    float ticketCost, totalCost,snackTotal, profit;
+    while(true)
+    {
+        if(notBlank(name, "Please enter the Ticket-Holders Name", commonOutput[0], snackString))
+        {
+            if(strChecker(name))
+            {
+                break;
+            }
+        }
+    }
+    while(true)
+    {
+        if(notBlank(strAge, "Please enter the Ticket-Holders Age" , commonOutput[0], snackString))
+        {
+            if(intChecker(strAge))
+            {
+                age = stoi(strAge);
+                if(age < 150 and age > 11)
+                {
+                    break;
+                }
+                cout << "Please enter a valid age in the correct format between 12 and 130" << endl;
+            }
+        }
+    }
+    for(int i = 0; i < 3; i++)
+    {
+        if(!snackChecker())
+        {
+            break;
+        }
+        
+    }
+    while(true)
+    {
+        if(notBlank(payMethod, "Would you like pay using cash or card", "Not a valid input", snackString))
+        {
+            if(strChecker(payMethod))
+            {
+                if(payMethod == "cash")
+                {
+                    credit = false;
+                    break;
+                }
+                if(payMethod == "card")
+                {
+                    credit = true;
+                    break;
+                }
+                cout << "Please enter 'cash' or 'card'" << endl;
+            }
+        }
+    }
+    for(int i = 0; i < sizeof(results)/sizeof(results[0]); i++)
+    {
+        for(int n = 0; n < results[i]; n++)
+        {
+            snackTotal += snackCost[i];
+        }
+    }
+    profit = snackTotal * profitPercent;
+    
+    if(age <= 15)
+    {
+        ticketCost = 7.50;
+    }
+    if(age <= 64 and age >= 16)
+    {
+        ticketCost = 10.50;
+    }
+    if(age >= 65)
+    {
+        ticketCost = 6.50;
+    }
+    totalCost = ticketCost + snackTotal;
+    if(credit == true)
+    {
+        totalCost += 0.05;
+    }
+    cout << "The Total Cost is: $" << totalCost << endl;
+    
+    return 0;
+}
