@@ -1,0 +1,404 @@
+#include <iostream>
+#include <string.h>
+#include <fstream>
+#include <iomanip>
+#include <cstdlib>
+
+using namespace std;
+//Snack List, can be updated if needed to add more snacks
+string menuList[][3] = {{"popcorn", "corn", "pop"}, {"m&m", "mandm", "mm"},{"pitachips", "chips", "pita"}, {"orangejuice","oj", "juice"}, {"water", "water", "water"}};
+//Snack inputs are stored here
+int results[150][5] = {0};
+//Snack Prices are stored here
+float snackCost[] = {2.50, 3.00, 4.50, 3.25, 2.00};
+//ticket cost, total cost, snack total cost, profit, surcharge, ticket profit << are stored in the 'costs' array respectively
+float costs[150][6] = {};
+//User Name is stored here
+string name[150] = {""};
+//User age is stored here
+int age[150] = {};
+//Whether the user is using credit is stored here
+bool credit[150] = {};
+
+//The main error message is stored here. Further messages could be added for ease of use if needed
+string commonOutput[1] = {"That is not a valid input"};
+
+//Other variables that are needed within the program but are not stored for the main output are here
+int noOfSnack, snackType;
+float profitPercent = 0.2;
+
+//Establishing the csv file
+ofstream csv_file("ticketSheet.csv");
+
+//Function that lowers an input
+int lower(string &lowString)
+{
+    //For each character of the string, that character is converted into lowercase 
+    for(int x = 0; x < lowString.length(); x++ ) 
+    {
+        lowString[x] = tolower(lowString[x]);
+    }
+    return 0;
+}
+
+//Function that checks if an input is a string
+bool strChecker(string strInput)
+{
+    /*For each character, check if the input isalpha. If it is last character, return true
+    If an invalid input is detected, error message is outputted*/
+    for(int i = 0; i < strInput.length(); i++)
+    {
+        if (isalpha(strInput[i]))
+        {
+            if(i + 1 == strInput.length())
+            {
+                return true;
+            }
+        }
+        else
+        {
+            cout << "Please enter a valid Input" << endl;
+            break;
+        }
+    }
+    return false;
+}
+
+//Function that checks if an input is an int
+bool intChecker(string intInput)
+{
+    /*For each character, check if the input isdigit. If it is last character, return true
+    If an invalid input is detected, error message is outputted*/
+    for(int i = 0; i < intInput.length(); i++)
+    {
+        if (isdigit(intInput[i]))
+        {
+            if(i + 1 == intInput.length())
+            {
+                return true;
+            }
+        }
+        else
+        {
+            cout << "Please enter a valid Input" << endl;
+            break;
+        }
+    }
+    return false;
+}
+
+//Function that checks if an input is of 'blank' type
+bool notBlank(string &x, string y, string z, bool snackString)
+{
+    while(true)
+    {
+        //Establishes string, while string length is 0, keep getting input
+        string n;
+        while (n.length() == 0)
+        {
+            cout << y << endl;
+            getline(cin, n);
+        }
+        //If the input is not going to be a snack, check all characters for spaces
+        if(snackString == false)
+        {
+            for(int i = 0; i < n.length(); i++)
+            {
+                char ch = n[i];
+                if (!isspace(ch))
+                {
+
+                }
+                else
+                {
+                    cout << z << endl;
+                    return false;
+                }
+            }
+        }
+        //If the input is going to be a snack, only check the first 2 characters
+        if(snackString == true)
+        {
+            for(int i = 0; i < 2; i++)
+            {
+                char ch = n[i];
+                if (!isspace(ch))
+                {
+
+                }
+                else
+                {
+                    cout << z << endl;
+                    return false;
+                }
+            }
+        }
+        //If the input is cleared as not a blank, the 'x' input takes the value of not
+        //x is the lowered and the program returns true
+        x = n;
+        lower(x);
+        return true;
+    }
+    
+}
+
+//Function that gets valid snack inputs
+bool snackChecker(int f)
+{
+    string userInput;
+    snackTop:
+    bool snackString = true;
+    
+    while(true)
+    {
+        while(true)
+        {
+            //Uses notblank to get a valid input
+            if(notBlank(userInput, "Please enter a snack", "That is not a valid input", snackString))
+            {
+                break;
+            }
+        }
+        //Finds the position of 'space', then creates substring of before the space 
+        int pos = userInput.find(" ");
+        string snackInput = userInput.substr(0, pos);
+        //The substring is checked against the menulist
+        for(int r = 0; r < sizeof(menuList)/sizeof(menuList[0]); r++)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                if(snackInput == menuList[r][i])
+                {
+                    //If a valid snack is found, it is stored
+                    snackType = r;
+                    //A second substring is made for the input suceeding the space
+                    string numSnacks = userInput.substr(pos +1);
+                    //If this substring is a digit, it is checked to be less than 3
+                    if(intChecker(numSnacks))
+                    {
+                        noOfSnack = stoi(numSnacks);
+                        if(noOfSnack > 3)
+                        {
+                            //If it fails the check it re-takes the input
+                            cout << "The maximum number of snacks is 3" << endl;
+                            goto snackTop;
+                        }
+                        //Otherwise, it stores this number in the corresponding slot in the array
+                        results[f][snackType] += noOfSnack;
+                        cout << "Snack accepted" << endl;
+                        return true;
+                    }
+                    //If it is not an integer, it also re-takes the input
+                    goto snackTop;
+                }
+            }   
+        }
+        //If the snack input is xxx, the exit code, the snack input stops
+        if(snackInput == "xxx")
+        {
+            return false;
+        }
+        //If the input is ?, then output the menu
+        if(snackInput == "?")
+        {
+            cout << "Popcorn >> $2.50" << endl << "M&M >> $3.00" << endl << "PitaChips >> $4.50" << endl << "OrangeJuice >> $3.25" << endl << "Water >> $2.00" << endl;
+            goto snackTop;
+        }
+        //Else, show an error message
+        cout << commonOutput[0] << endl;
+    }
+    return false;
+}
+
+//Function that outputs data to a csv file
+int csv()
+{
+    csv_file << "Name, Age, Ticket Price, Popcorn, M&M's, Pita Chips, OJ, Water, Snack Cost, Payment Method, Surcharge, Total Cost,, Seat Profit, Snack Profit, Total Profit" << endl;
+    for(int m = 0; m < (sizeof(age)/sizeof(age[0])); m++)
+    {
+        csv_file << fixed << setprecision(2);
+        csv_file << name[m] << ",";
+        csv_file << age[m] << ",";
+        csv_file << costs[m][0] << ",";
+        for(int i = 0; i < (sizeof(results[m])/sizeof(results[m][0])); i++)
+        {
+            csv_file << results[m][i] << ",";
+        }
+        csv_file << costs[m][2] << ",";
+        if(credit[m])
+        {
+            csv_file << "credit" << ",";
+        }
+        if(!credit[m])
+        {
+            csv_file << "cash" << ",";
+        }
+        csv_file << costs[m][4] << "," << costs[m][1];
+        csv_file << "," << ",";
+        csv_file << costs[m][5] << ",";
+        csv_file << costs[m][2] * profitPercent << ",";
+        csv_file << costs[m][3] << ",";
+        csv_file << endl;
+        if(age[m + 1] == 0)
+        {
+            csv_file << endl << "," << ",";
+            csv_file << "Total Snacks:" << ",";
+            
+            for(int t = 0; t < (sizeof(results[m])/sizeof(results[m][0])); t++)
+            {
+                int snackNumTotal = 0;
+                for(int n = 0; n < 150; n++)
+                {
+                    snackNumTotal += results[n][t];
+                }
+                csv_file << snackNumTotal << ",";
+            }
+            csv_file << endl;
+            csv_file << ",," << "Total Seats:" << ",";
+            int totalSeats = 0;
+            for(int s = 0; s < (sizeof(name)/sizeof(name[0])); s++)
+            {
+                if(age[s] != 0)
+                {
+                    totalSeats += 1;
+                }
+                else
+                {
+                    break;   
+                }
+            }
+            csv_file << totalSeats << ",,,,,,,,,," << "Total Profit,,";
+            float totalProfit = 0;
+            for(int n = 0; n < 150; n++)
+            {
+                totalProfit += costs[n][3];
+            }
+            csv_file << totalProfit << ",";
+            
+            break;
+        }
+    }
+    
+    return 0;
+}
+
+int main()
+{
+    //In a loop for the maximum number of tickets available
+    for(int f = 0; f < (sizeof(name)/sizeof(name[0])); f++)
+    {
+        string strAge, payMethod;
+        bool snackString = false;
+        //Makes a loop for the name input
+        while(true)
+        {
+            if(notBlank(name[f], "Please enter the Ticket-Holders Name", commonOutput[0], snackString))
+            {
+                if(strChecker(name[f]))
+                {
+                    //If the name is xxx, the exit code, goto the print receipt section
+                    if(name[f] == "xxx")
+                    {
+                        goto printReceipt;
+                    }
+                    break;
+                }
+            }
+        }
+        //A loop for the age input
+        while(true)
+        {
+            if(notBlank(strAge, "Please enter the Ticket-Holders Age" , commonOutput[0], snackString))
+            {
+                if(intChecker(strAge))
+                {
+                    age[f] = stoi(strAge);
+                    //If the age fits the parameters, then accept the input
+                    if(age[f] < 150 and age[f] > 11)
+                    {
+                        break;
+                    }
+                    cout << "Please enter a valid age in the correct format between 12 and 130" << endl;
+                }
+            }
+        }
+        //Get the snack input 3 times, unless the error code is entered
+        for(int i = 0; i < 3; i++)
+        {
+            if(!snackChecker(f))
+            {
+                break;
+            }
+            
+        }
+        //Use notBlank to get an input, then check if it is a string
+        while(true)
+        {
+            if(notBlank(payMethod, "Would you like pay using cash or card", commonOutput[0], snackString))
+            {
+                if(strChecker(payMethod))
+                {
+                    //If the input is "cash", credit is false, if is "card", credit is true
+                    if(payMethod == "cash")
+                    {
+                        credit[f] = false;
+                        break;
+                    }
+                    if(payMethod == "card")
+                    {
+                        credit[f] = true;
+                        break;
+                    }
+                    cout << "Please enter 'cash' or 'card'" << endl;
+                }
+            }
+        }
+        //Calculating the total snack cost
+        for(int i = 0; i < sizeof(results)/sizeof(results[0]); i++)
+        {
+            for(int n = 0; n < results[f][i]; n++)
+            {
+                costs[f][2] += snackCost[i];
+            }
+        }
+        
+        // calculating the profit of the snacks
+        costs[f][3] += costs[f][2] * profitPercent;
+        
+        //Checking the age ranges and assigning ticket costs accordingly, another bracket of if statements could be added for more ranges
+        if(age[f] <= 15)
+        {
+            costs[f][0] = 7.50;
+        }
+        if(age[f] <= 64 and age[f] >= 16)
+        {
+            costs[f][0] = 10.50;
+        }
+        if(age[f] >= 65)
+        {
+            costs[f][0] = 6.50;
+        }
+        //Adding the snack and ticket costs to the total cost
+        costs[f][1] = costs[f][0] + costs[f][2];
+        //Getting the ticket profit
+        costs[f][5] = costs[f][0] - 5;
+        //Adding the ticket profit to the total profit
+        costs[f][3] += costs[f][5];
+        if(credit[f] == true)
+        {
+            //Getting the surcharge amount if credit is true
+            costs[f][4] = 0.05 * costs[f][1];
+            //Adding the surcharge amount to the total if credit is true
+            costs[f][1] += costs[f][4];
+        }
+        //Setting the precision to 2dp
+        cout << fixed << setprecision(2);
+        //Outputting the total cost to the user, so they do not need to look at the csv file unless they want specifics
+        cout << "The Total Cost is: $" << costs[f][1] << endl;
+        cout << costs[f][3] << endl;
+    }
+    printReceipt:
+    //Performing the csv function
+    csv();
+    return 0;
+}
