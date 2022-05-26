@@ -213,18 +213,23 @@ bool snackChecker(int f)
 //Function that outputs data to a csv file
 int csv()
 {
+    //Statement that sets up the columns
+    //Set the precision to 2dp for the csv file output
+    csv_file << fixed << setprecision(2);
     csv_file << "Name, Age, Ticket Price, Popcorn, M&M's, Pita Chips, OJ, Water, Snack Cost, Payment Method, Surcharge, Total Cost,, Seat Profit, Snack Profit, Total Profit" << endl;
+    //For the number of tickets sold...
     for(int m = 0; m < (sizeof(age)/sizeof(age[0])); m++)
     {
-        csv_file << fixed << setprecision(2);
-        csv_file << name[m] << ",";
-        csv_file << age[m] << ",";
-        csv_file << costs[m][0] << ",";
+        //Output the name, age and ticket cost
+        csv_file << name[m] << "," << age[m] << "," << costs[m][0] << ",";
+        //For the number of items in the snack list, output the number purchased
         for(int i = 0; i < (sizeof(results[m])/sizeof(results[m][0])); i++)
         {
             csv_file << results[m][i] << ",";
         }
+        //Output the total snack cost
         csv_file << costs[m][2] << ",";
+        //If the user chose credit, state so, if not, state cash
         if(credit[m])
         {
             csv_file << "credit" << ",";
@@ -233,17 +238,14 @@ int csv()
         {
             csv_file << "cash" << ",";
         }
-        csv_file << costs[m][4] << "," << costs[m][1];
-        csv_file << "," << ",";
-        csv_file << costs[m][5] << ",";
-        csv_file << costs[m][2] * profitPercent << ",";
-        csv_file << costs[m][3] << ",";
-        csv_file << endl;
+        //Output the surcharge, total cost, then seat profit, snack profit and total profit
+        csv_file << costs[m][4] << "," << costs[m][1] << ",," << costs[m][5] << ",";
+        csv_file << costs[m][2] * profitPercent << "," << costs[m][3] << "," << endl;
+        //If the ticket is the last one...
         if(age[m + 1] == 0)
         {
-            csv_file << endl << "," << ",";
-            csv_file << "Total Snacks:" << ",";
-            
+            //Output the total snacks 
+            csv_file << endl << ",," << "Total Snacks:" << ",";
             for(int t = 0; t < (sizeof(results[m])/sizeof(results[m][0])); t++)
             {
                 int snackNumTotal = 0;
@@ -254,6 +256,7 @@ int csv()
                 csv_file << snackNumTotal << ",";
             }
             csv_file << endl;
+            //Output the total seats
             csv_file << ",," << "Total Seats:" << ",";
             int totalSeats = 0;
             for(int s = 0; s < (sizeof(name)/sizeof(name[0])); s++)
@@ -268,13 +271,13 @@ int csv()
                 }
             }
             csv_file << totalSeats << ",,,,,,,,,," << "Total Profit,,";
+            //Output the total profit
             float totalProfit = 0;
             for(int n = 0; n < 150; n++)
             {
                 totalProfit += costs[n][3];
             }
             csv_file << totalProfit << ",";
-            
             break;
         }
     }
