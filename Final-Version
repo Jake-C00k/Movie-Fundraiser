@@ -249,7 +249,7 @@ int csv()
             for(int t = 0; t < (sizeof(results[m])/sizeof(results[m][0])); t++)
             {
                 int snackNumTotal = 0;
-                for(int n = 0; n < 150; n++)
+                for(int n = 0; n < (sizeof(age)/sizeof(age[0])); n++)
                 {
                     snackNumTotal += results[n][t];
                 }
@@ -259,7 +259,7 @@ int csv()
             //Output the total seats
             csv_file << ",," << "Total Seats:" << ",";
             int totalSeats = 0;
-            for(int s = 0; s < (sizeof(name)/sizeof(name[0])); s++)
+            for(int s = 0; s < (sizeof(age)/sizeof(age[0])); s++)
             {
                 if(age[s] != 0)
                 {
@@ -273,7 +273,7 @@ int csv()
             csv_file << totalSeats << ",,,,,,,,,," << "Total Profit,,";
             //Output the total profit
             float totalProfit = 0;
-            for(int n = 0; n < 150; n++)
+            for(int n = 0; n < (sizeof(age)/sizeof(age[0])); n++)
             {
                 totalProfit += costs[n][3];
             }
