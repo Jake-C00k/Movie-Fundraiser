@@ -401,6 +401,10 @@ int main()
     }
     printReceipt:
     //Performing the csv function
+    if(name[0] == "xxx")
+    {
+        return 0;
+    }
     csv();
     return 0;
 }
