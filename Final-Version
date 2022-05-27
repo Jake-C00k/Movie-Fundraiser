@@ -398,7 +398,6 @@ int main()
         cout << fixed << setprecision(2);
         //Outputting the total cost to the user, so they do not need to look at the csv file unless they want specifics
         cout << "The Total Cost is: $" << costs[f][1] << endl;
-        cout << costs[f][3] << endl;
     }
     printReceipt:
     //Performing the csv function
